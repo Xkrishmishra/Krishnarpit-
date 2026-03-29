@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krishnarpit Group of Institute of Pharmacy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;800&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #0a1628;
+      --deep: #06101e;
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --gold-pale: #f7e9bb;
+      --cream: #fdf6e3;
+      --white: #ffffff;
+      --accent: #1e3a5f;
+      --teal: #0d7c7c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep);
+      font-family: 'Raleway', sans-serif;
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE TEXTURE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, #1e3a5f 0%, #0a1628 50%, #06101e 100%);
+      padding: 2rem;
+    }
+
+    /* Animated background orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: floatOrb 12s ease-in-out infinite;
+    }
+    .orb-1 { width: 500px; height: 500px; background: var(--gold); top: -100px; left: -100px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: var(--teal); bottom: -100px; right: -100px; animation-delay: -4s; }
+    .orb-3 { width: 300px; height: 300px; background: var(--gold-light); top: 40%; left: 60%; animation-delay: -8s; }
+
+    @keyframes floatOrb {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.08); }
+    }
+
+    /* Decorative circles */
+    .deco-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 168, 76, 0.15);
+    }
+    .ring-1 { width: 600px; height: 600px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: spinSlow 60s linear infinite; }
+    .ring-2 { width: 800px; height: 800px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: spinSlow 90s linear infinite reverse; }
+    .ring-3 { width: 1000px; height: 1000px; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: spinSlow 120s linear infinite; }
+
+    @keyframes spinSlow { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeInUp 1.2s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-icon {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+    .logo-icon svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 20px rgba(201, 168, 76, 0.5));
+    }
+
+    .tagline-top {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.6rem, 1.5vw, 0.85rem);
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      opacity: 0.85;
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--white);
+      text-shadow: 0 0 60px rgba(201, 168, 76, 0.3);
+      margin-bottom: 0.5rem;
+    }
+    h1 span { color: var(--gold); }
+
+    .subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--gold-pale);
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    .divider-line { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+    .divider-gem {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      box-shadow: 0 0 10px var(--gold);
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+    .stat {
+      text-align: center;
+      animation: fadeInUp 1.2s ease forwards;
+    }
+    .stat-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      color: var(--gold);
+      font-weight: 600;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-pale);
+      opacity: 0.7;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gold);
+      opacity: 0.5;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+    .scroll-hint::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(var(--gold), transparent);
+    }
+
+    /* ─── SECTION STYLES ─── */
+    section { padding: 5rem 2rem; position: relative; z-index: 1; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.2;
+    }
+
+    /* ─── A-Z GRID ─── */
+    .az-section {
+      background: linear-gradient(180deg, var(--deep) 0%, var(--navy) 50%, var(--deep) 100%);
+    }
+
+    .az-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .az-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(30, 58, 95, 0.6) 0%, rgba(10, 22, 40, 0.8) 100%);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 2px;
+      padding: 1.8rem 1.5rem;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      cursor: default;
+      backdrop-filter: blur(10px);
+    }
+
+    .az-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(201, 168, 76, 0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .az-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--gold), var(--teal));
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .az-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(201, 168, 76, 0.4);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(201, 168, 76, 0.08);
+    }
+    .az-card:hover::before { opacity: 1; }
+    .az-card:hover::after { transform: scaleY(1); }
+    .az-card:hover .az-letter { color: var(--gold-light); text-shadow: 0 0 40px rgba(201, 168, 76, 0.5); }
+
+    .az-letter {
+      font-family: 'Cinzel', serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: rgba(201, 168, 76, 0.25);
+      line-height: 1;
+      position: absolute;
+      top: 0.8rem;
+      right: 1rem;
+      transition: all 0.4s;
+      user-select: none;
+    }
+
+    .az-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .az-word {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .az-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .az-desc {
+      font-size: 0.82rem;
+      color: rgba(253, 246, 227, 0.65);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* ─── ABOUT SECTION ─── */
+    .about-section {
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-section::before {
+      content: 'KGIP';
+      position: absolute;
+      font-family: 'Cinzel', serif;
+      font-size: 18rem;
+      font-weight: 800;
+      color: rgba(201, 168, 76, 0.03);
+      right: -2rem;
+      bottom: -3rem;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .about-text p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: rgba(253, 246, 227, 0.8);
+      margin-bottom: 1.2rem;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .pillar {
+      background: rgba(201, 168, 76, 0.05);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 1.2rem;
+      border-radius: 2px;
+      text-align: center;
+    }
+    .pillar-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+    .pillar-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+    }
+
+    /* ─── PROGRAMS SECTION ─── */
+    .programs-section { background: var(--deep); }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .program-card {
+      background: linear-gradient(160deg, rgba(30, 58, 95, 0.5) 0%, rgba(10, 22, 40, 0.9) 100%);
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      padding: 2.5rem 1.8rem;
+      text-align: center;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .program-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--gold);
+      box-shadow: 0 0 40px rgba(201, 168, 76, 0.12);
+    }
+    .program-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 0%, rgba(201, 168, 76, 0.1) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .program-card:hover::before { opacity: 1; }
+
+    .prog-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .prog-degree {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .prog-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--cream);
+      font-style: italic;
+      margin-bottom: 0.8rem;
+    }
+    .prog-years {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: rgba(201, 168, 76, 0.6);
+      text-transform: uppercase;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--deep);
+      border-top: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.1em;
+    }
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: rgba(253, 246, 227, 0.4);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .footer-links a {
+      color: rgba(201, 168, 76, 0.6);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(253, 246, 227, 0.25);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(6, 16, 30, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .nav-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(253, 246, 227, 0.6);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .az-grid { grid-template-columns: 1fr; }
+      .stats-row { gap: 1.5rem; }
+      .pillars { grid-template-columns: 1fr; }
+    }
+
+    /* Card entrance animation */
+    .az-card {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: cardIn 0.5s ease forwards;
+    }
+    @keyframes cardIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">KGIP</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#az">A–Z</a></li>
+      <li><a href="#programs">Programs</a></li>
+    </ul>
+  </nav>
+
+  <!-- HEADER -->
+  <header>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="deco-ring ring-1"></div>
+    <div class="deco-ring ring-2"></div>
+    <div class="deco-ring ring-3"></div>
+
+    <div class="header-content">
+      <div class="logo-icon">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Mortar & Pestle + Cross symbol -->
+          <circle cx="50" cy="50" r="48" stroke="#c9a84c" stroke-width="1" opacity="0.4"/>
+          <circle cx="50" cy="50" r="40" stroke="#c9a84c" stroke-width="0.5" opacity="0.25"/>
+          <!-- Cross -->
+          <rect x="44" y="24" width="12" height="52" rx="2" fill="#c9a84c" opacity="0.85"/>
+          <rect x="24" y="44" width="52" height="12" rx="2" fill="#c9a84c" opacity="0.85"/>
+          <!-- Center gem -->
+          <rect x="45" y="45" width="10" height="10" fill="#f0d080" transform="rotate(45 50 50)"/>
+        </svg>
+      </div>
+
+      <div class="tagline-top">Est. 2001 &bull; Excellence in Pharmaceutical Education</div>
+      <h1>Krishnarpit<br /><span>Group of Institute</span></h1>
+      <p class="subtitle">of Pharmacy</p>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-gem"></div>
+        <div class="divider-line"></div>
+      </div>
+
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:rgba(253,246,227,0.7); max-width:500px; margin:0 auto 2rem;">
+        Shaping the future of healthcare through knowledge, innovation & integrity — from A to Z.
+      </p>
+
+      <div class="stats-row">
+        <div class="stat" style="animation-delay:0.2s">
+          <span class="stat-num">25+</span>
+          <span class="stat-label">Years of Excellence</span>
+        </div>
+        <div class="stat" style="animation-delay:0.35s">
+          <span class="stat-num">5000+</span>
+          <span class="stat-label">Alumni Worldwide</span>
+        </div>
+        <div class="stat" style="animation-delay:0.5s">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Placement Support</span>
+        </div>
+        <div class="stat" style="animation-delay:0.65s">
+          <span class="stat-num">NAAC</span>
+          <span class="stat-label">Accredited</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">Discover</div>
+  </header>
+
+  <!-- ABOUT SECTION -->
+  <section class="about-section" id="about">
+    <div class="section-header">
+      <span class="section-label">Who We Are</span>
+      <h2 class="section-title">A Legacy of Pharmaceutical Excellence</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Krishnarpit Group of Institute of Pharmacy stands as a beacon of pharmaceutical education, blending rigorous academic tradition with cutting-edge research. Our institution nurtures compassionate pharmacists and scientists who serve society with skill and integrity.</p>
+        <p>Founded on the principles of knowledge, service, and innovation, KGIP has trained thousands of healthcare professionals who are making a difference across India and the world.</p>
+        <p>With state-of-the-art laboratories, experienced faculty, and industry partnerships, we offer an education that prepares students not just for careers — but for callings.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar">
+          <span class="pillar-icon">🔬</span>
+          <div class="pillar-name">Research</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">🏛️</span>
+          <div class="pillar-name">Tradition</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">💊</span>
+          <div class="pillar-name">Innovation</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">🌍</span>
+          <div class="pillar-name">Global Reach</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">🎓</span>
+          <div class="pillar-name">Academics</div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-icon">🤝</span>
+          <div class="pillar-name">Integrity</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A-Z SECTION -->
+  <section class="az-section" id="az" style="padding-top:5rem; padding-bottom:5rem;">
+    <div class="section-header">
+      <span class="section-label">The Complete Spectrum</span>
+      <h2 class="section-title">Pharmacy from A to Z</h2>
+      <p style="font-family:'Cormorant Garamond',serif; font-style:italic; margin-top:1rem; color:rgba(253,246,227,0.55); font-size:1.1rem;">Every dimension of our institution, every facet of pharmaceutical science</p>
+    </div>
+
+    <div class="az-grid">
+
+      <!-- A -->
+      <div class="az-card" style="animation-delay:0.02s">
+        <div class="az-letter">A</div>
+        <span class="az-icon">⚗️</span>
+        <div class="az-word">A — Anatomy</div>
+        <div class="az-title">Anatomy & Physiology</div>
+        <p class="az-desc">The foundation of pharmacy education — deep understanding of the human body, organ systems, and physiological processes that guide drug therapy decisions.</p>
+      </div>
+
+      <!-- B -->
+      <div class="az-card" style="animation-delay:0.04s">
+        <div class="az-letter">B</div>
+        <span class="az-icon">🧬</span>
+        <div class="az-word">B — Biochemistry</div>
+        <div class="az-title">Biochemistry & Molecular Biology</div>
+        <p class="az-desc">Exploring metabolic pathways, enzyme kinetics, and molecular interactions that form the scientific backbone of modern drug design and discovery.</p>
+      </div>
+
+      <!-- C -->
+      <div class="az-card" style="animation-delay:0.06s">
+        <div class="az-letter">C</div>
+        <span class="az-icon">🏥</span>
+        <div class="az-word">C — Clinical Pharmacy</div>
+        <div class="az-title">Clinical Pharmacy Practice</div>
+        <p class="az-desc">Bridging the gap between science and patient care through therapeutic drug monitoring, counselling, and pharmacist-led clinical interventions in healthcare settings.</p>
+      </div>
+
+      <!-- D -->
+      <div class="az-card" style="animation-delay:0.08s">
+        <div class="az-letter">D</div>
+        <span class="az-icon">💊</span>
+        <div class="az-word">D — Drug Discovery</div>
+        <div class="az-title">Drug Discovery & Design</div>
+        <p class="az-desc">From hit identification to lead optimisation — students engage in rational drug design, combinatorial chemistry, and in-silico molecular docking studies.</p>
+      </div>
+
+      <!-- E -->
+      <div class="az-card" style="animation-delay:0.10s">
+        <div class="az-letter">E</div>
+        <span class="az-icon">⚖️</span>
+        <div class="az-word">E — Ethics</div>
+        <div class="az-title">Ethics & Pharmacy Law</div>
+        <p class="az-desc">Instilling professional responsibility, patient confidentiality, regulatory compliance, and ethical decision-making at every stage of a pharmacist's career.</p>
+      </div>
+
+      <!-- F -->
+      <div class="az-card" style="animation-delay:0.12s">
+        <div class="az-letter">F</div>
+        <span class="az-icon">🧪</span>
+        <div class="az-word">F — Formulation</div>
+        <div class="az-title">Pharmaceutics & Formulation</div>
+        <p class="az-desc">The art and science of converting active compounds into safe, stable, and effective dosage forms — tablets, capsules, gels, emulsions, and novel drug delivery systems.</p>
+      </div>
+
+      <!-- G -->
+      <div class="az-card" style="animation-delay:0.14s">
+        <div class="az-letter">G</div>
+        <span class="az-icon">🏭</span>
+        <div class="az-word">G — GMP</div>
+        <div class="az-title">Good Manufacturing Practice</div>
+        <p class="az-desc">Training students in WHO-GMP guidelines, cGMP compliance, quality systems, standard operating procedures, and regulatory frameworks for pharmaceutical production.</p>
+      </div>
+
+      <!-- H -->
+      <div class="az-card" style="animation-delay:0.16s">
+        <div class="az-letter">H</div>
+        <span class="az-icon">🏨</span>
+        <div class="az-word">H — Hospital Pharmacy</div>
+        <div class="az-title">Hospital & Clinical Services</div>
+        <p class="az-desc">Hands-on hospital internships equip students with real-world experience in dispensing, patient counselling, ward rounds, and medication reconciliation.</p>
+      </div>
+
+      <!-- I -->
+      <div class="az-card" style="animation-delay:0.18s">
+        <div class="az-letter">I</div>
+        <span class="az-icon">🏗️</span>
+        <div class="az-word">I — Industrial Pharmacy</div>
+        <div class="az-title">Industrial Pharmacy</div>
+        <p class="az-desc">Comprehensive exposure to large-scale manufacturing, process validation, technology transfer, and the pharmaceutical supply chain — from bulk to finished product.</p>
+      </div>
+
+      <!-- J -->
+      <div class="az-card" style="animation-delay:0.20s">
+        <div class="az-letter">J</div>
+        <span class="az-icon">📰</span>
+        <div class="az-word">J — Journal Club</div>
+        <div class="az-title">Journal Club & Research Culture</div>
+        <p class="az-desc">Weekly scientific discussions, literature reviews, and critical appraisal sessions that cultivate research mindset and evidence-based pharmaceutical practice.</p>
+      </div>
+
+      <!-- K -->
+      <div class="az-card" style="animation-delay:0.22s">
+        <div class="az-letter">K</div>
+        <span class="az-icon">🌟</span>
+        <div class="az-word">K — Krishnarpit</div>
+        <div class="az-title">Krishnarpit — Our Identity</div>
+        <p class="az-desc">Named with devotion and purpose, Krishnarpit signifies an offering of knowledge to society. Our name is our commitment — education as a sacred service to humanity.</p>
+      </div>
+
+      <!-- L -->
+      <div class="az-card" style="animation-delay:0.24s">
+        <div class="az-letter">L</div>
+        <span class="az-icon">🔭</span>
+        <div class="az-word">L — Laboratory</div>
+        <div class="az-title">State-of-the-Art Laboratories</div>
+        <p class="az-desc">Our world-class labs — Pharmacognosy, Pharmaceutical Chemistry, Microbiology, and Instrumental Analysis — provide immersive, practical learning experiences.</p>
+      </div>
+
+      <!-- M -->
+      <div class="az-card" style="animation-delay:0.26s">
+        <div class="az-letter">M</div>
+        <span class="az-icon">🧲</span>
+        <div class="az-word">M — Medicinal Chemistry</div>
+        <div class="az-title">Medicinal Chemistry</div>
+        <p class="az-desc">Structure-activity relationships, synthesis of bioactive compounds, and the chemistry of life-saving molecules form the heart of our medicinal chemistry curriculum.</p>
+      </div>
+
+      <!-- N -->
+      <div class="az-card" style="animation-delay:0.28s">
+        <div class="az-letter">N</div>
+        <span class="az-icon">🌿</span>
+        <div class="az-word">N — Nutraceuticals</div>
+        <div class="az-title">Nutraceuticals & Herbal Science</div>
+        <p class="az-desc">Integrating traditional wisdom with modern science — students explore phytochemistry, herbal drug standardisation, and the emerging nutraceuticals market.</p>
+      </div>
+
+      <!-- O -->
+      <div class="az-card" style="animation-delay:0.30s">
+        <div class="az-letter">O</div>
+        <span class="az-icon">🔮</span>
+        <div class="az-word">O — Organic Chemistry</div>
+        <div class="az-title">Organic & Pharmaceutical Chemistry</div>
+        <p class="az-desc">Mastery of reaction mechanisms, stereochemistry, functional group transformations, and synthetic strategies essential for pharmaceutical molecule development.</p>
+      </div>
+
+      <!-- P -->
+      <div class="az-card" style="animation-delay:0.32s">
+        <div class="az-letter">P</div>
+        <span class="az-icon">💉</span>
+        <div class="az-word">P — Pharmacology</div>
+        <div class="az-title">Pharmacology & Toxicology</div>
+        <p class="az-desc">Understanding drug mechanisms, receptor interactions, dose-response relationships, adverse effects, and the science of how medicines heal — or harm — the body.</p>
+      </div>
+
+      <!-- Q -->
+      <div class="az-card" style="animation-delay:0.34s">
+        <div class="az-letter">Q</div>
+        <span class="az-icon">✅</span>
+        <div class="az-word">Q — Quality Control</div>
+        <div class="az-title">Quality Assurance & Control</div>
+        <p class="az-desc">Rigorous training in analytical testing, validation methods, spectroscopic techniques, and quality management systems that ensure every medicine meets global standards.</p>
+      </div>
+
+      <!-- R -->
+      <div class="az-card" style="animation-delay:0.36s">
+        <div class="az-letter">R</div>
+        <span class="az-icon">📡</span>
+        <div class="az-word">R — Research</div>
+        <div class="az-title">Research & Innovation Hub</div>
+        <p class="az-desc">Our faculty and students publish in peer-reviewed journals, file patents, and collaborate with industries — driving pharmaceutical innovation that benefits society at large.</p>
+      </div>
+
+      <!-- S -->
+      <div class="az-card" style="animation-delay:0.38s">
+        <div class="az-letter">S</div>
+        <span class="az-icon">🛡️</span>
+        <div class="az-word">S — Safety</div>
+        <div class="az-title">Drug Safety & Pharmacovigilance</div>
+        <p class="az-desc">Training students in adverse drug reaction monitoring, post-marketing surveillance, and global pharmacovigilance systems that protect patients worldwide.</p>
+      </div>
+
+      <!-- T -->
+      <div class="az-card" style="animation-delay:0.40s">
+        <div class="az-letter">T</div>
+        <span class="az-icon">☣️</span>
+        <div class="az-word">T — Toxicology</div>
+        <div class="az-title">Toxicology & Drug Safety</div>
+        <p class="az-desc">Comprehensive study of chemical toxicity, antidotes, occupational hazards, forensic toxicology, and risk assessment in pharmaceutical and environmental contexts.</p>
+      </div>
+
+      <!-- U -->
+      <div class="az-card" style="animation-delay:0.42s">
+        <div class="az-letter">U</div>
+        <span class="az-icon">🎓</span>
+        <div class="az-word">U — University Rankings</div>
+        <div class="az-title">University Affiliations & Rankings</div>
+        <p class="az-desc">Affiliated with leading universities and recognised by PCI, AICTE, and the Ministry of Education — ensuring globally recognised degrees and academic credibility.</p>
+      </div>
+
+      <!-- V -->
+      <div class="az-card" style="animation-delay:0.44s">
+        <div class="az-letter">V</div>
+        <span class="az-icon">🦠</span>
+        <div class="az-word">V — Vaccines</div>
+        <div class="az-title">Vaccinology & Biologics</div>
+        <p class="az-desc">From immunology fundamentals to mRNA vaccine technology — students explore the cutting edge of biologics, biosimilars, and vaccine development pipelines.</p>
+      </div>
+
+      <!-- W -->
+      <div class="az-card" style="animation-delay:0.46s">
+        <div class="az-letter">W</div>
+        <span class="az-icon">🌐</span>
+        <div class="az-word">W — WHO Guidelines</div>
+        <div class="az-title">WHO & Regulatory Compliance</div>
+        <p class="az-desc">In-depth curriculum coverage of WHO essential medicines, ICH guidelines, FDA/EMA regulations, and global regulatory pathways for pharmaceutical submissions.</p>
+      </div>
+
+      <!-- X -->
+      <div class="az-card" style="animation-delay:0.48s">
+        <div class="az-letter">X</div>
+        <span class="az-icon">🔬</span>
+        <div class="az-word">X — X-ray Crystallography</div>
+        <div class="az-title">X-ray & Spectroscopic Analysis</div>
+        <p class="az-desc">Advanced instrumental techniques — XRD, NMR, IR, Mass Spectrometry, HPLC — taught both theoretically and practically for confident pharmaceutical analysis.</p>
+      </div>
+
+      <!-- Y -->
+      <div class="az-card" style="animation-delay:0.50s">
+        <div class="az-letter">Y</div>
+        <span class="az-icon">📈</span>
+        <div class="az-word">Y — Yield Optimisation</div>
+        <div class="az-title">Yield & Process Optimisation</div>
+        <p class="az-desc">Applying design of experiments (DoE), process analytical technology (PAT), and quality by design (QbD) to maximise pharmaceutical manufacturing efficiency.</p>
+      </div>
+
+      <!-- Z -->
+      <div class="az-card" style="animation-delay:0.52s">
+        <div class="az-letter">Z</div>
+        <span class="az-icon">🏆</span>
+        <div class="az-word">Z — Zero Defect</div>
+        <div class="az-title">Zero Defect — Our Standard</div>
+        <p class="az-desc">We uphold a zero-defect culture across teaching, research, and practice. Every graduate leaves as a complete professional — committed to excellence in every dose they dispense.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROGRAMS SECTION -->
+  <section class="programs-section" id="programs">
+    <div class="section-header">
+      <span class="section-label">Academic Programs</span>
+      <h2 class="section-title">Courses We Offer</h2>
+    </div>
+
+    <div class="programs-grid">
+      <div class="program-card">
+        <span class="prog-icon">🎓</span>
+        <div class="prog-degree">D. Pharm</div>
+        <div class="prog-name">Diploma in Pharmacy</div>
+        <div class="prog-years">2 Years • PCI Approved</div>
+      </div>
+      <div class="program-card">
+        <span class="prog-icon">📜</span>
+        <div class="prog-degree">B. Pharm</div>
+        <div class="prog-name">Bachelor of Pharmacy</div>
+        <div class="prog-years">4 Years • PCI Approved</div>
+      </div>
+      <div class="program-card">
+        <span class="prog-icon">🎖️</span>
+        <div class="prog-degree">M. Pharm</div>
+        <div class="prog-name">Master of Pharmacy</div>
+        <div class="prog-years">2 Years • PCI Approved</div>
+      </div>
+      <div class="program-card">
+        <span class="prog-icon">🔬</span>
+        <div class="prog-degree">Pharm. D</div>
+        <div class="prog-name">Doctor of Pharmacy</div>
+        <div class="prog-years">6 Years • PCI Approved</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Krishnarpit Group of Institute of Pharmacy</div>
+    <div class="footer-tagline">"Nurturing Healers, Building Futures"</div>
+
+    <div class="divider" style="margin:1.5rem 0;">
+      <div class="divider-line"></div>
+      <div class="divider-gem"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="footer-links">
+      <a href="#about">About Us</a>
+      <a href="#az">A–Z Guide</a>
+      <a href="#programs">Programs</a>
+      <a href="#">Admissions</a>
+      <a href="#">Faculty</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <div class="footer-copy">
+      &copy; 2024 Krishnarpit Group of Institute of Pharmacy. All Rights Reserved.<br />
+      Affiliated & Approved by PCI | AICTE | NAAC
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for card animations
+    const cards = document.querySelectorAll('.az-card, .program-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach((card, i) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `opacity 0.6s ease ${i * 0.04}s, transform 0.6s ease ${i * 0.04}s, border-color 0.4s, box-shadow 0.4s`;
+      observer.observe(card);
+    });
+
+    // Smooth nav highlight
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 100) {
+        nav.style.background = 'rgba(6, 16, 30, 0.95)';
+      } else {
+        nav.style.background = 'rgba(6, 16, 30, 0.85)';
+      }
+    });
+  </script>
+</body>
+</html>
